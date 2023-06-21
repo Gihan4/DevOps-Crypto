@@ -62,7 +62,7 @@ pipeline {
             steps 
             {
                 sh """
-                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf /home/ec2-user/project.tar.gz ;rm project.tar.gz ;/bin/bash ./Devops-Crypto/deploy.sh'
+                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf /home/ec2-user/project.tar.gz ;rm project.tar.gz ;/bin/bash ./Devops-Crypto/Ansible/deploy.sh'
                 """
             }
         }
