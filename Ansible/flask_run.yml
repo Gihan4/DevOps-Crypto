@@ -1,0 +1,44 @@
+
+---
+- name: Execute DevOps-Crypto setup
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: Update system packages
+      dnf:
+        name: '*'
+        state: latest
+        update_cache: yes
+      become: true
+
+    - name: Change directory to DevOps-Crypto
+      command: cd /home/ec2-user/DevOps-Crypto
+      become: true
+
+    - name: Install Flask
+      pip:
+        name: flask
+        state: present
+      become: true
+
+    - name: Create Flask systemd service
+      template:
+        src: flask.service.j2
+        dest: /etc/systemd/system/flask.service
+      become: true
+      notify:
+        - Reload systemd
+
+    - name: Start and enable Flask service
+      systemd:
+        name: flask
+        state: started
+        enabled: yes
+      become: true
+
+  handlers:
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes
+      become: true
