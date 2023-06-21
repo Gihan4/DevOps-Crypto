@@ -12,10 +12,6 @@
         update_cache: yes
       become: true
 
-    - name: Change directory to DevOps-Crypto
-      command: cd /home/ec2-user/DevOps-Crypto
-      become: true
-
     - name: Install Flask
       pip:
         name: flask
