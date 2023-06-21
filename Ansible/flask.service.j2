@@ -3,7 +3,7 @@ Description=Flask Web Application
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -m flask run --host=0.0.0.0
+ExecStart=python3 -m flask run --host=0.0.0.0
 User=ec2-user
 Environment=FLASK_ENV=production
 
