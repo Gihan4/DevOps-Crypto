@@ -1,5 +1,5 @@
-# DevOps-Crypto
-DevOps crypto site to watch crypto currencys value.
+# Flask Pipeline Project
+Crypto site to watch crypto currencys value.
 
 The project incorporates a CI/CD pipeline to automate the deployment process, ensuring efficient and consistent delivery of updates.
 The pipeline is implemented using Jenkins and is triggered on each commit to the repository.
