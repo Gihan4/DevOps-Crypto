@@ -57,10 +57,10 @@ pipeline {
         stage('Testing') {
             steps {
                 echo "Testing on EC2..."
-                sh """
-                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh'
-                """
-                sh '/bin/bash /home/ec2-user/test.sh'
+                script {
+                    withEnv(["testip=${testip}"]) {
+                        sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} \'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh && /bin/bash /home/ec2-user/test.sh\''
+                    }
             }
         }
     }
