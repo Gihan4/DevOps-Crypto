@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    triggers {
+    //triggers {
         // The pipeline is triggered every minute to check for changes in the git
         // pollSCM('*/1 * * * *')
-    }
+    //}
 
     environment {
         testip = sh(
