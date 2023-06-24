@@ -58,7 +58,7 @@ pipeline {
             steps {
                 echo "Testing on EC2..."
                 sh """
-                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh'
+                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh && bash /home/ec2-user/test.sh ${testip}'
                 """
             }
         }
