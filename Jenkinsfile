@@ -11,6 +11,10 @@ pipeline {
             script: "aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Environment,Values=Test' --query 'Reservations[].Instances[].PublicIpAddress' --output text",
             returnStdout: true
         ).trim()
+        prodip = sh(
+            script: "aws ec2 describe-instances --region eu-central-1 --filters 'Name=tag:Environment,Values=Test' --query 'Reservations[].Instances[].PublicIpAddress' --output text",
+            returnStdout: true
+        ).trim()
     }
 
     stages {
@@ -59,6 +63,15 @@ pipeline {
                 echo "Testing on EC2..."
                 sh """
                 ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${testip} 'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh && /bin/bash /home/ec2-user/test.sh'
+                """
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                echo "Deploying on production instance..."
+                sh """
+                ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/Gihan4.pem ec2-user@${prodip} 'tar -xvf project.tar.gz && rm project.tar.gz && /bin/bash /home/ec2-user/deploy.sh'
                 """
             }
         }
